@@ -1,0 +1,9 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api
+open-weather-map:
+  url: https://api.openweathermap.org/data/2.5/weather
+  apiKey: xxx
+service-b:
+  url: https://serviceB/api

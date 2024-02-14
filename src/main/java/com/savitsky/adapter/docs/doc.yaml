@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Adapter
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+paths:
+  /api/weather/messages:
+    post:
+      tags:
+        - weather
+      description: Enrich and snd message
+      operationId: fillMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageDto'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdapterResponse'
+        '400':
+          description: Invalid dto applied
+        '500':
+          description: 'Server error'
+
+components:
+  schemas:
+    MessageDto:
+      type: object
+      properties:
+        msg:
+          type: string
+          description: 'Message from ServiceA'
+          required: true
+          example: 'Привет'
+        lng:
+          type: string
+          description: 'Language code'
+          required: true
+          example: 'ru'
+        coordinates:
+          type: object
+          properties:
+            latitude:
+              type: string
+              description: 'Latitude'
+              required: true
+              example: '54.35'
+            longitude:
+              type: string
+              description: 'Longitude'
+              required: true
+              example: '52.35'
+    AdapterResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          example: 'Weather data successfully filled and proxied'
+        status:
+          enum:
+            - OK
+            - ERROR
+          example: 'OK'
+        message:
+          type: string
+          example: 'Success'
